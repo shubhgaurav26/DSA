@@ -1,0 +1,48 @@
+Problem Statement
+Given two integers x and n, write a function to determine xn.
+
+Example 1:
+Input : x = 2, n = 3
+Output : 8
+
+Example 2:
+Input : x = 1, n = 1
+Output : 1
+
+Constraints:
+-100 < x < 100
+0 <= n <= 100
+x and n are integers.
+Either x is not zero or n is not zero.
+0 <= xn <= 104
+
+
+CODE : 
+
+
+public class PowerCalculator {
+    public static int calculatePower(int x, int n) {
+        if (n == 0) {
+            return 1;
+        }
+        int result = 1;
+        int base = x;
+        while (n > 0) {
+   
+            if (n % 2 == 1) {
+                result *= base;
+            }
+            base *= base; 
+            n /= 2;      
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+
+        int x1 = 2, n1 = 3;
+        System.out.println("Output for x = " + x1 + ", n = " + n1 + ": " + calculatePower(x1, n1)); // Output: 8
+        int x2 = 1, n2 = 1;
+        System.out.println("Output for x = " + x2 + ", n = " + n2 + ": " + calculatePower(x2, n2)); // Output: 1
+    }
+}
