@@ -1,0 +1,39 @@
+Problem Statement
+Given a non-negative integer, N. Find the factorial of N.
+
+Example 1:
+Input:
+N = 5
+Output:
+120
+Explanation:
+5*4*3*2*1 = 120
+Example 2:
+Input:
+N = 1
+Output:
+1
+Constraints:
+0 <= N <= 12
+
+CODE :
+
+public class Factorial {
+    public static int factorialIterative(int n) {
+        int result = 1;
+        for (int i = 2; i <= n; i++) {
+            result *= i;
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        int N = 5;
+        System.out.println("Factorial (Iterative) of " + N + ": " + factorialIterative(N));
+
+        N = 1;
+        System.out.println("Factorial (Iterative) of " + N + ": " + factorialIterative(N));
+    }
+}
+
+
