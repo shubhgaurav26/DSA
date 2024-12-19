@@ -1,0 +1,38 @@
+Problem Statement
+Given a string S, check if it is palindrome or not.
+
+Example 1:
+Input: S = "racecar"
+Output: 1
+Explanation: S is a palindrome
+Example 2:
+Input: S = "adr" 
+Output: 0
+Explanation: S is not a palindrome
+Constraints:
+0 <= Length of S <= 2*105
+
+
+
+CODE : 
+
+
+public class PalindromeChecker {
+    public static int isPalindrome(String S) {
+        int left = 0, right = S.length() - 1;
+        while (left < right) {
+            if (S.charAt(left) != S.charAt(right)) {
+                return 0;
+            }
+            left++;
+            right--;
+        }
+        return 1;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(isPalindrome("racecar"));
+        System.out.println(isPalindrome("adr"));
+    }
+}
+
