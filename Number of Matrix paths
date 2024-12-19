@@ -1,0 +1,61 @@
+Problem Statement
+
+
+Count every path that can lead from the top left to the bottom right of a M X N matrix, with the restriction that you can only move right or down from each cell
+
+Example 1:
+Input: M = 2, N = 2
+
+Output: 2
+
+Explanation:
+
+There are only two paths
+(0, 0) -> (0, 1) -> (1, 1)
+(0, 0) -> (1, 0) -> (1, 1)
+
+Example 2:
+Input:  M = 2, N = 3
+
+Output: 3
+
+Explanation: 
+
+There are three paths
+(0, 0) -> (0, 1) -> (0, 2) -> (1, 2)
+(0, 0) -> (0, 1) -> (1, 1) -> (1, 2)
+(0, 0) -> (1, 0) -> (1, 1) -> (1, 2)
+
+Constraints:
+1 <= N, M <= 10
+
+
+
+
+CODE : 
+
+
+public class PathCounter {
+    public static int countPaths(int M, int N) {
+        int[][] dp = new int[M][N];
+
+        for (int i = 0; i < M; i++) {
+            for (int j = 0; j < N; j++) {
+                if (i == 0 || j == 0) {
+                    dp[i][j] = 1;
+                } else {
+                    dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+                }
+            }
+        }
+        
+        return dp[M - 1][N - 1];
+    }
+
+    public static void main(String[] args) {
+        System.out.println(countPaths(2, 2)); // Output: 2
+        System.out.println(countPaths(2, 3)); // Output: 3
+    }
+}
+
+
