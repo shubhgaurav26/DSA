@@ -1,0 +1,69 @@
+Problem Statement
+In a square matrix of order N * N, imagine a rat placed at position (0, 0). The final location must be reached at (N - 1, N - 1). Find every route the rat might possibly take to go from point A to point B. The rat can move in the following directions: "U" (up), "D" (down), "L" (left), and "R" (right). Rats cannot move to a cell with a value of 0 in the matrix because it is blocked, while rats can pass through cells with a value of 1 in the matrix.
+No cell can be visited more than once in a journey. The rat cannot go to any other cell if the originating cell is 0.
+
+ 
+
+Complete the function findPath() which takes N and 2D array m[ ][ ] as input parameters and returns the list of paths in lexicographically increasing order. 
+
+Example 1:
+Input:
+N = 4
+m[][] = {{1, 0, 0, 0},
+         {1, 1, 0, 1}, 
+         {1, 1, 0, 0},
+         {0, 1, 1, 1}}
+Output:
+DDRDRR DRDDRR
+Explanation:
+The rat can reach the destination at 
+(3, 3) from (0, 0) by two paths - DRDDRR 
+and DDRDRR, when printed in sorted order 
+we get DDRDRR DRDDRR.
+Example 2:
+Input:
+N = 2
+m[][] = {{1, 1},
+         {1, 1}}
+
+Output:
+DR RD
+Constraints:
+2 ≤ N ≤ 5
+0 ≤ Mat[i][j] ≤ 1
+
+
+
+
+CODE : 
+
+public class Permutations {
+    public static List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        backtrack(nums, new ArrayList<>(), result);
+        Collections.sort(result, (a, b) -> {
+            for (int i = 0; i < a.size(); i++) {
+                if (!a.get(i).equals(b.get(i))) {
+                    return a.get(i) - b.get(i);
+                }
+            }
+            return 0;
+        });
+        return result;
+    }
+
+    private static void backtrack(int[] nums, List<Integer> current, List<List<Integer>> result) {
+        if (current.size() == nums.length) {
+            result.add(new ArrayList<>(current));
+            return;
+        }
+        for (int num : nums) {
+            if (!current.contains(num)) {
+                current.add(num);
+                backtrack(nums, current, result);
+                current.remove(current.size() - 1);
+            }
+        }
+    }
+}
+
