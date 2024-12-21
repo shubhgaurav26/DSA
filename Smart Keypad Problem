@@ -1,0 +1,60 @@
+Problem Statement
+You are given a string digits that contains digits from [2 - 9], both inclusive. Return all possible letter combinations that the number could represent in sorted order. 
+Example 1:
+Input: 
+digits = "23"
+Output: 
+["ad","ae","af","bd","be","bf","cd","ce","cf"]
+Example 2:
+Input: 
+digits = "9"
+Output: 
+["w", "x", "y", "z"]
+Constraints:
+0 <= digits.size <= 4
+
+
+
+
+
+
+CODE :
+
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class OptimizedLetterCombinations {
+    private static final String[] KEYPAD = {
+        "", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"
+    };
+
+    public static List<String> getCombinations(String digits) {
+        if (digits == null || digits.isEmpty()) return new ArrayList<>();
+        List<String> result = new ArrayList<>();
+        generateCombinations(digits, 0, new StringBuilder(), result);
+        return result;
+    }
+
+    private static void generateCombinations(String digits, int index, StringBuilder current, List<String> result) {
+        if (index == digits.length()) {
+            result.add(current.toString());
+            return;
+        }
+        String letters = KEYPAD[digits.charAt(index) - '0'];
+        int length = current.length();
+        for (int i = 0; i < letters.length(); i++) {
+            current.append(letters.charAt(i));
+            generateCombinations(digits, index + 1, current, result);
+            current.setLength(length); // Reset the StringBuilder to its original state
+        }
+    }
+
+    public static void main(String[] args) {
+        String digits = "23";
+        List<String> combinations = getCombinations(digits);
+        System.out.println(combinations);
+    }
+}
+
+
