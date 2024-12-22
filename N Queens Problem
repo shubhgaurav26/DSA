@@ -1,0 +1,93 @@
+Problem Statement
+Given an integer n, return all distinct solutions to the n-queens puzzle. You may return the answer in any order. 
+
+The n-queens puzzle is the problem of placing n queens on an n x n chessboard such that no two queens attack each other.
+
+Each solution contains a distinct board configuration of the n-queens' placement, where 'Q' and '.' both indicate a Queen and an empty space, respectively.
+
+ 
+
+Example 1:
+Sample Input:
+
+4
+
+Sample Output:
+
+[[".Q..","...Q","Q...","..Q."],
+
+["..Q.","Q...","...Q",".Q.."]]
+
+ 
+
+Explanation:
+
+ 
+
+
+ 
+
+Example 2:
+Sample Input:
+
+1
+
+Sample Output:
+
+[“Q”]
+
+Constraints:
+1 <= n <= 9
+
+CODE : 
+
+
+public class NQueens {
+    public List<List<String>> solveNQueens(int n) {
+        List<List<String>> result = new ArrayList<>();
+        backtrack(result, new ArrayList<>(), n, 0);
+        return result;
+    }
+
+    private void backtrack(List<List<String>> result, List<String> board, int n, int row) {
+        if (row == n) {
+            result.add(new ArrayList<>(board));
+            return;
+        }
+
+        for (int col = 0; col < n; col++) {
+            if (isValid(board, row, col)) {
+                char[] rowArr = new char[n];
+                for (int i = 0; i < n; i++) rowArr[i] = '.';
+                rowArr[col] = 'Q';
+                board.add(new String(rowArr));
+
+                backtrack(result, board, n, row + 1);
+
+                board.remove(board.size() - 1);
+            }
+        }
+    }
+
+    private boolean isValid(List<String> board, int row, int col) {
+        for (int i = 0; i < row; i++) {
+            int queenCol = board.get(i).indexOf('Q');
+            if (queenCol == col || queenCol - i == col - row || queenCol + i == col + row) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static void main(String[] args) {
+        NQueens nq = new NQueens();
+        List<List<String>> result = nq.solveNQueens(4);
+        for (List<String> solution : result) {
+            for (String row : solution) {
+                System.out.println(row);
+            }
+            System.out.println();
+        }
+    }
+}
+
