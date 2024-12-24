@@ -1,0 +1,76 @@
+Problem Statement
+Given an array A[ ] of positive integers of size n, where each value represents the number of chocolates in a packet. Each packet can have a variable number of chocolates. There are m students, the task is to distribute chocolate packets among m students such that :
+1. Each student gets exactly one packet.
+2. The difference between the maximum number of chocolates given to a student and the minimum number of chocolates given to a student is minimum.
+
+ 
+Example 1:
+Input:
+
+arr = [7, 3, 2, 4, 9, 12, 56]
+
+m = 3
+
+Output:
+
+2 
+
+Explanation:
+
+The chocolate packets given are 3 , 2 , 4.Thus the difference is 2
+
+Example 2:
+Input:
+
+N = 8, M = 5
+A = {3, 4, 1, 9, 56, 7, 9, 12}
+
+Output:
+
+6
+
+Explanation:
+
+The minimum difference between maximum chocolates and minimum chocolates is 9 - 3 = 6 by choosing the following m packets: {3, 4, 9, 7, 9}.
+
+Constraints:
+1 <= n <= 105
+
+1 <= arr[i] <=109
+
+1 <= m <= n
+
+
+CODE :
+
+import java.util.Arrays;
+
+public class ChocolateDistribution {
+    public static int findMinDifference(int arr[], int n, int m) {
+        Arrays.sort(arr);
+        if (n < m) {
+            return -1;
+        }
+        int minDiff = Integer.MAX_VALUE;
+        for (int i = 0; i + m - 1 < n; i++) {
+            int diff = arr[i + m - 1] - arr[i];
+            if (diff < minDiff) {
+                minDiff = diff;
+            }
+        }
+        return minDiff;
+    }
+
+    public static void main(String[] args) {
+        int arr1[] = {7, 3, 2, 4, 9, 12, 56};
+        int m1 = 3;
+        int n1 = arr1.length;
+        System.out.println(findMinDifference(arr1, n1, m1));
+
+        int arr2[] = {3, 4, 1, 9, 56, 7, 9, 12};
+        int m2 = 5;
+        int n2 = arr2.length;
+        System.out.println(findMinDifference(arr2, n2, m2));
+    }
+}
+
