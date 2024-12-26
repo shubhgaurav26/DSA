@@ -1,0 +1,64 @@
+Problem Statement
+You are given an unsorted array of size N. Array elements are from 1 to N. One number from the set {1, 2, …n} is missing, and one number (not missing) occurs twice in the array. Find these two numbers.
+
+Example 1:
+Input:
+
+6
+
+[1, 1, 2, 3, 4, 6]
+
+Output:
+
+[5, 1]
+
+Example 2:
+Input:
+
+4
+
+[4, 2, 3, 2]
+
+Output:
+
+[1, 2]
+
+Constraints:
+2 <= N <= 105
+
+
+CODE :
+
+import java.util.*;
+
+public class Solution {
+    public static int[] findMissingAndRepeating(int[] A) {
+        int n = A.length;
+        int sum = 0, sumSquares = 0;
+        int expectedSum = (n * (n + 1)) / 2;
+        int expectedSumSquares = (n * (n + 1) * (2 * n + 1)) / 6;
+        
+        for (int num : A) {
+            sum += num;
+            sumSquares += num * num;
+        }
+        
+        int diff = expectedSum - sum;
+        int diffSquares = expectedSumSquares - sumSquares;
+        
+        int sumOfMissingAndRepeating = diffSquares / diff;
+        
+        int missing = (diff + sumOfMissingAndRepeating) / 2;
+        int repeating = sumOfMissingAndRepeating - missing;
+        
+        return new int[] {missing, repeating};
+    }
+
+    public static void main(String[] args) {
+        int[] A = {1, 1, 2, 3, 4, 6};
+        int[] result = findMissingAndRepeating(A);
+        System.out.println(Arrays.toString(result));
+    }
+}
+
+
