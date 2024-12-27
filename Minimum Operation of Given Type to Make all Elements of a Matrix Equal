@@ -1,0 +1,77 @@
+Problem Statement
+Given an integer K and a matrix of N rows and M columns, the task is to find the minimum number of operations required to make all the elements of the matrix equal. In a single operation, K can be added to or subtracted from any element of the matrix.
+
+Example 1:
+Input:
+
+A = [[0, 2, 8],
+
+     [8, 2, 0],
+
+     [0, 2, 8]]
+
+K = 2
+
+Output:
+
+12
+
+Constraints:
+1 <= N, M <= 1000
+
+1 <= | A | <= 105
+
+1 <= Ai <= 105
+
+1 <= k <= 104
+
+
+
+
+CODE :
+
+import java.util.*;
+
+public class MatrixEqualizer {
+    public static int minOperations(int[][] A, int K) {
+        int N = A.length;
+        int M = A[0].length;
+        int size = N * M;
+        int[] elements = new int[size];
+        int index = 0;
+
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < M; j++) {
+                elements[index++] = A[i][j];
+            }
+        }
+
+        Arrays.sort(elements);
+
+        int remainder = elements[0] % K;
+        for (int num : elements) {
+            if (num % K != remainder) return -1;
+        }
+
+        int median = elements[size / 2];
+        int operations = 0;
+
+        for (int num : elements) {
+            operations += Math.abs(num - median) / K;
+        }
+
+        return operations;
+    }
+
+    public static void main(String[] args) {
+        int[][] A = {
+            {0, 2, 8},
+            {8, 2, 0},
+            {0, 2, 8}
+        };
+        int K = 2;
+        System.out.println(minOperations(A, K));
+    }
+}
+
+
