@@ -1,0 +1,98 @@
+Problem Statement
+Given an integer array A of non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it is able to trap after raining.
+
+ 
+
+Output:
+
+Return the total water it is able to trap after raining.
+
+Example 1:
+Input:
+
+[1, 2, 1, 2, 1]
+
+ Output:
+
+1
+
+Example 2:
+Input:
+
+[1, 5, 3, 5, 2, 1]
+
+ Output:
+
+2
+
+Constraints:
+2 <= |A| <= 100000
+
+
+
+
+
+CODE :
+
+class Solution {
+    public int firstMissingPositive(int[] nums) {
+        int n = nums.length;
+        for (int i = 0; i < n; i++) {
+            while (nums[i] > 0 && nums[i] <= n && nums[nums[i] - 1] != nums[i]) {
+                int temp = nums[nums[i] - 1];
+                nums[nums[i] - 1] = nums[i];
+                nums[i] = temp;
+            }
+        }
+
+        for (int i = 0; i < n; i++) {
+            if (nums[i] != i + 1) {
+                return i + 1;
+            }
+        }
+
+        return n + 1;
+    }
+
+    public int maxChunksToSorted(int[] arr) {
+        int max = 0, chunks = 0;
+        for (int i = 0; i < arr.length; i++) {
+            max = Math.max(max, arr[i]);
+            if (max == i) {
+                chunks++;
+            }
+        }
+        return chunks;
+    }
+
+    public int trap(int[] height) {
+        if (height == null || height.length < 3) return 0;
+
+        int n = height.length;
+        int left = 0, right = n - 1;
+        int leftMax = 0, rightMax = 0;
+        int water = 0;
+
+        while (left <= right) {
+            if (height[left] <= height[right]) {
+                if (height[left] >= leftMax) {
+                    leftMax = height[left];
+                } else {
+                    water += leftMax - height[left];
+                }
+                left++;
+            } else {
+                if (height[right] >= rightMax) {
+                    rightMax = height[right];
+                } else {
+                    water += rightMax - height[right];
+                }
+                right--;
+            }
+        }
+
+        return water;
+    }
+}
+
+
