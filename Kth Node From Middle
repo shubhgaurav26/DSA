@@ -1,0 +1,84 @@
+Problem Statement
+Given are an integer B and a linked list A of length N.
+
+From the middle of the Linked List A toward the beginning, you must determine the value of the Bth node.
+
+Return -1 if such an element is not present.
+
+ 
+
+NOTE: N is the total number of nodes in the list, and the position of the middle node is (N/2)+1.
+
+Example 1:
+Input: 
+A: 1 -> 2 -> 3 -> 4 -> 5
+B: 2
+
+Output: 
+1
+
+Example 2:
+Input: 
+A: 1 -> 2 -> 3 -> 4 -> 5
+B: 0
+
+Output: 
+3
+
+Constraints:
+1 <= N <= 105
+-103 <= Value in Each Link List Node <= 103
+0 <= B <= 105
+
+CODE :
+
+class ListNode {
+    int val;
+    ListNode next;
+    ListNode(int val) {
+        this.val = val;
+        this.next = null;
+    }
+}
+
+public class Solution {
+    public ListNode reverseList(ListNode head) {
+        ListNode prev = null;
+        ListNode current = head;
+        while (current != null) {
+            ListNode nextTemp = current.next;
+            current.next = prev;
+            prev = current;
+            current = nextTemp;
+        }
+        return prev;
+    }
+
+    public int getBthNodeFromMiddle(ListNode A, int B) {
+        if (A == null) return -1;
+        ListNode slow = A, fast = A;
+        int length = 0;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            length += 2;
+        }
+
+        if (fast != null) length++; 
+
+        int middleIndex = (length / 2) + 1;
+        int targetIndex = middleIndex - B;
+
+        if (targetIndex <= 0 || targetIndex > length) return -1;
+
+        ListNode current = A;
+        for (int i = 1; i < targetIndex; i++) {
+            current = current.next;
+        }
+
+        return current != null ? current.val : -1;
+    }
+}
+
+
