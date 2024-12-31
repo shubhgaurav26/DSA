@@ -1,0 +1,27 @@
+Problem Statement
+Swap every two adjacent nodes in a linked list A, then return the head of the list.
+
+Note: your method should only consume constant space. Only the nodes themselves can be updated; the list's values cannot be altered.
+
+Example 1:
+Input: 
+1 -> 2 -> 3 -> 4 -> 5
+
+Output: 
+2 -> 1 -> 4 -> 3 -> 5 
+
+Example 2:
+Input: 
+1 -> 2 -> 3 -> 4 
+
+Output: 
+2 -> 1 -> 4 -> 3 
+
+Constraints:
+1 <= |A| <= 106
+
+CODE :
+
+
+
+
