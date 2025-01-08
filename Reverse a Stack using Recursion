@@ -1,0 +1,52 @@
+Problem Statement
+Given a stack of size n, Reverse the elements of the stack using Recursion.
+
+Example 1:
+Sample Input:
+
+n = 5
+
+[1, 2, 3, 4, 5]
+
+Sample Output:
+
+[5, 4, 3, 2, 1]
+
+Example 2:
+Sample Input:
+
+n = 3
+
+[1, 2, 3]
+
+Sample Output:
+
+[3, 2, 1]
+
+Constraints:
+1 <= size of the Stack <= 10^3
+
+1 <= element <= 10^9
+
+
+import java.util.Stack;
+
+public class Solution {
+    public void reverseStack(Stack<Integer> stack) {
+        if (stack.isEmpty()) return;
+        int top = stack.pop();
+        reverseStack(stack);
+        insertAtBottom(stack, top);
+    }
+
+    private void insertAtBottom(Stack<Integer> stack, int value) {
+        if (stack.isEmpty()) {
+            stack.push(value);
+            return;
+        }
+        int top = stack.pop();
+        insertAtBottom(stack, value);
+        stack.push(top);
+    }
+}
+
