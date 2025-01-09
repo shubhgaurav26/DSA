@@ -1,0 +1,86 @@
+Problem Statement
+Reverse the position of a linked list from M to N. Do it in-place and in one-pass.
+
+Here M and N are 1 based Indexed.
+
+Example 1:
+Input: 
+List: 1 -> 2 -> 3 -> 4 -> 5
+M: 2
+N: 4
+
+Output: 
+1 -> 4 -> 3 -> 2 -> 5
+
+Explanation:
+
+The nodes between position 2 and 4 (1-based indexing) have been reversed.
+
+Example 2:
+Input: 
+List: 1 -> 1 -> 1 -> 1 -> 1
+M: 2
+N: 4
+
+Output: 
+1 -> 1 -> 1 -> 1 -> 1
+
+Constraints:
+1 ≤ M ≤ N ≤ length of list <= 105.
+
+-103 <= Value in Each Link List Node <= 103
+
+
+
+CODE :
+
+class ListNode {
+    int val;
+    ListNode next;
+
+    ListNode(int val) {
+        this.val = val;
+    }
+}
+
+public class Solution {
+    public ListNode reverseBetween(ListNode head, int M, int N) {
+        if (head == null || M == N) return head;
+
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode prev = dummy;
+
+        for (int i = 1; i < M; i++) prev = prev.next;
+
+        ListNode current = prev.next;
+        ListNode next = null;
+
+        for (int i = 0; i < N - M; i++) {
+            next = current.next;
+            current.next = next.next;
+            next.next = prev.next;
+            prev.next = next;
+        }
+
+        return dummy.next;
+    }
+
+    public static void main(String[] args) {
+        ListNode head = new ListNode(1);
+        head.next = new ListNode(2);
+        head.next.next = new ListNode(3);
+        head.next.next.next = new ListNode(4);
+        head.next.next.next.next = new ListNode(5);
+
+        Solution solution = new Solution();
+        ListNode result = solution.reverseBetween(head, 2, 4);
+
+        while (result != null) {
+            System.out.print(result.val + " -> ");
+            result = result.next;
+        }
+        System.out.println("null");
+    }
+}
+
