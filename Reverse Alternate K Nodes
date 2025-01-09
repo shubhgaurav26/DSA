@@ -1,0 +1,104 @@
+Problem Statement
+Given are an integer B and a linked list A of length N.
+
+Each alternate B node in the linked list A must be reversed.
+
+Example 1:
+Input:
+
+A = 1 -> 2 -> 3 -> 4 ->  5 -> 6 -> 7 -> 8 -> 9
+B = 3
+
+Output:
+
+3 -> 2 -> 1 -> 4 ->  5 -> 6 -> 9 -> 8 -> 7
+
+Example 2:
+Input:
+
+A = 1 -> 2 -> 3 -> 4 ->  5 -> 6 -> 7 -> 8 -> 9
+B = 1
+
+Output:
+
+1 -> 2 -> 3 -> 4 ->  5 -> 6 -> 7 -> 8 -> 9
+
+Constraints:
+1 <= N <= 105
+1<= Value in Each Link List Node <= 103
+1 <= B <= N
+N is divisible by B
+
+
+
+CODE :
+
+
+class ListNode {
+    int val;
+    ListNode next;
+
+    ListNode(int val) {
+        this.val = val;
+    }
+}
+
+public class Solution {
+    public ListNode reverseAlternateKNodes(ListNode head, int B) {
+        if (head == null || B <= 0) return head;
+
+        ListNode current = head, prevTail = null, prevCurrent = null;
+        boolean reverse = true;
+
+        while (current != null) {
+            ListNode segmentHead = current, prev = null;
+            int count = 0;
+
+            while (current != null && count < B) {
+                ListNode next = current.next;
+                if (reverse) current.next = prev;
+                prev = current;
+                current = next;
+                count++;
+            }
+
+            if (reverse) {
+                if (prevTail != null) prevTail.next = prev;
+                else head = prev;
+                segmentHead.next = current;
+            } else {
+                if (prevTail != null) prevTail.next = segmentHead;
+            }
+
+            prevTail = segmentHead;
+            reverse = !reverse;
+        }
+
+        return head;
+    }
+
+    public static void main(String[] args) {
+        ListNode head = new ListNode(1);
+        head.next = new ListNode(2);
+        head.next.next = new ListNode(3);
+        head.next.next.next = new ListNode(4);
+        head.next.next.next.next = new ListNode(5);
+        head.next.next.next.next.next = new ListNode(6);
+        head.next.next.next.next.next.next = new ListNode(7);
+        head.next.next.next.next.next.next.next = new ListNode(8);
+        head.next.next.next.next.next.next.next.next = new ListNode(9);
+
+        Solution solution = new Solution();
+        ListNode result = solution.reverseAlternateKNodes(head, 3);
+
+        while (result != null) {
+            System.out.print(result.val + " -> ");
+            result = result.next;
+        }
+        System.out.println("null");
+    }
+}
+
+
+
+
